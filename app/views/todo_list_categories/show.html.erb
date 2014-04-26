@@ -1,0 +1,32 @@
+<h2><%= @todo_list_category.name %></h2>
+
+<h2>现有事项</h2>
+<% @todo_list_category.todo_list_items.each do |item| %>
+<p>
+  <strong>名字</strong>
+  <%= item.name %>
+
+  <strong>备注</strong>
+  <%= item.content %>  
+
+  <%= link_to "删除事项", [@todo_list_category, item],
+      method: :delete,
+      data: { confirm: "Are you sure?" } %>
+</p>
+<% end %>
+
+<h2>添加事项</h2>
+<%= form_for([@todo_list_category, @todo_list_category.todo_list_items.build]) do |f| %>
+<p>
+  <%= f.label "名字" %>
+  <%= f.text_field "name" %>
+</p>
+<p>
+  <%= f.label "备注" %>
+  <%= f.text_area "content" %>
+</p>
+<p><%= f.submit "添加事项" %></p>
+<% end %>
+
+
+<%= link_to "返回总列表", todo_list_categories_path %>

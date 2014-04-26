@@ -1,0 +1,7 @@
+<h1> 新增代办事项分类 </h1>
+
+<%= form_for @todo_list_category do |f| %>
+<p><%= f.label "名称" %></p>
+<p><%= f.text_field "name" %></p>
+<p><%= f.submit "确定" %></p>
+<% end %>

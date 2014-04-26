@@ -1,0 +1,18 @@
+<h2>修改分类</h2>
+
+<%= form_for @todo_list_category do |f| %>
+<p><%= f.label "名称" %></p>
+<p><%= f.text_field "name" %><%= f.submit "修改分类" %></p>
+<% end %>
+
+<h2>已保存的分类</h2>
+<% @todo_list_categories.each do |t| %>
+<p>
+  <%= t.id %> <%= t.name %> 
+  <%= link_to "删除", todo_list_category_path(t), method: :delete, 
+      data: { confirm: 'Are you sure ?' } %>
+  <%= link_to "修改", edit_todo_list_category_path(t) %>
+</p>
+<% end %>
+
+

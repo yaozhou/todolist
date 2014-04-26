@@ -1,0 +1,32 @@
+<table  class="table table-bordered" border="2">
+<% todo_list_items = todo_list_category.todo_list_items %>  
+<% todo_list_items.each do |item| %>
+<tr >
+  <td><%= item.name %></td>
+  <td><%= link_to "删除", [item.todo_list_category, item],
+      method: :delete, data: { confirm: "Are you sure?" } %></td>
+<% end %>
+</table>
+
+<br>
+
+<%= form_for([todo_list_category, todo_list_items.build], :html => {:class => 'form-inline'}) do |f| %>
+
+  <%= f.text_field "name", class:"input-large" %>
+
+  <button type="submit" class="btn">添加事项</button>
+
+
+<div style="clear:both;"></div>
+<div align="right">
+
+<%= link_to "删除此分类", 
+  todo_list_category_path(todo_list_category), 
+  method: :delete, data: { confirm: "Are you sure?" } %>
+
+</div>
+
+
+<% end %>
+
+

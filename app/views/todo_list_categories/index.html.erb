@@ -1,0 +1,68 @@
+<% if user_signed_in? %>
+<li><%= link_to("退出登录", destroy_user_session_path, method: :delete) %></li>
+<% else %>
+<li><%= link_to("登录", new_user_session_path) %></li>
+<% end %>
+
+<h3> 我的TodoList </h3>
+
+<div style="clear:both;"></div>
+<div align="right">
+
+<%= form_for @todo_list_category, :html => {:class => 'form-inline'} do |f| %>
+  <%= f.text_field "name", class:"input-large" %>
+  <button type="submit" class="btn">新增分类</button>
+</p>
+<% end %>
+
+<div class="bs-docs-example">
+  <div class="tabbable" style="margin-bottom: 18px;">
+    <ul class="nav nav-tabs">
+      <% for i in 0...@todo_list_categories.length %>
+        <% attr = {"href"=>"#tab#{i}", "data-toggle"=>"tab"} %>
+	<% aTag = content_tag("a", "#{@todo_list_categories[i].name}", attr) %>
+        <% if i == 0 %>
+          <%= content_tag(:li, aTag, class: "active") %>
+        <% else %>
+          <%= content_tag(:li, aTag) %>
+	<% end %>      
+      <% end %>
+    </ul>
+    <div class="tab-content" style="padding-bottom: 9px; border-bottom: 1px solid #ddd;">
+      <% for i in 0...@todo_list_categories.length %>
+	<% partial_str = render(partial: "todo_list_items",
+	   locals: {todo_list_category: @todo_list_categories[i]}) %>
+
+        <% classStr = (i == 0 ? "tab-pane active" : "tab-pane") %>
+        <%= content_tag("div", partial_str,
+	    {"class"=>classStr, "id"=>"tab#{i}"}) %>
+      <% end %>      
+    </div>
+  </div>
+</div>
+
+<!--  
+<h2>已保存的分类</h2>
+<% @todo_list_categories.each do |t| %>
+<p>
+  <%= t.id %> <%= t.name %> 
+  <%= "user_id(#{t.user_id})" %>
+  <%= "有#{t.todo_list_items.length}项内容" %>
+  <%= link_to "删除", todo_list_category_path(t), method: :delete, 
+      data: { confirm: 'Are you sure ?' } %>
+  <%= link_to "修改", edit_todo_list_category_path(t) %>
+  <%= link_to "显示", todo_list_category_path(t) %>
+</p>
+<% end %>
+-->
+
+<!--
+<form class="form-inline">
+  <input type="text" class="input-small" placeholder="Email">
+  <input type="password" class="input-small" placeholder="Password">
+  <label class="checkbox">
+    <input type="checkbox"> Remember me
+  </label>
+  <button type="submit" class="btn">Sign in</button>
+</form>
+-->
