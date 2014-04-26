@@ -1,0 +1,8 @@
+rails new object-name
+修改config/routes.rb 添加 resources :resource_name(复数) 后执行 rake routes
+rails server 启动
+rails g controller resource_name(复数)
+
+rails g model 单数大写 title:string text:text
+
+<%= debug var %>
